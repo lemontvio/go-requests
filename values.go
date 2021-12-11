@@ -1,4 +1,4 @@
-package go_requests
+package requests
 
 import (
 	"net/url"
