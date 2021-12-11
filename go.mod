@@ -1,3 +1,3 @@
-module github.com/lemontvio/awesomeProject
+module github.com/lemontvio/go-requests
 
 go 1.15
