@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-const UserAgent = `go-requests/0.0.1`
+const UserAgent = `go-requests/0.0.2`
 
 type Requests struct {
 	proxy     string
@@ -119,6 +119,10 @@ func (requests *Requests) Delete(raw string, options *Options) (*http.Response, 
 	return requests.request("DELETE", raw, options)
 }
 
+func (requests *Requests) Options(raw string, options *Options) (*http.Response, error) {
+	return requests.request("OPTIONS", raw, options)
+}
+
 func (requests *Requests) SetProxy(raw string) {
 	if raw != "" {
 		requests.proxy = raw
@@ -139,20 +143,24 @@ func (requests *Requests) SetTimeout(timeout int) {
 
 var std = New()
 
-func Get(raw string, options *Options) (*http.Response, error) {
+func GET(raw string, options *Options) (*http.Response, error) {
 	return std.Get(raw, options)
 }
 
-func Post(raw string, options *Options) (*http.Response, error) {
+func POST(raw string, options *Options) (*http.Response, error) {
 	return std.Post(raw, options)
 }
 
-func Put(raw string, options *Options) (*http.Response, error) {
+func PUT(raw string, options *Options) (*http.Response, error) {
 	return std.Put(raw, options)
 }
 
-func Delete(raw string, options *Options) (*http.Response, error) {
+func DELETE(raw string, options *Options) (*http.Response, error) {
 	return std.Delete(raw, options)
+}
+
+func OPTIONS(raw string, options *Options)(*http.Response, error) {
+	return std.Options(raw, options)
 }
 
 func SetProxy(raw string) {
