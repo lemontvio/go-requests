@@ -8,10 +8,10 @@ import (
 	"time"
 )
 
-const UserAgent = `go-requests/0.0.2`
+const UserAgent = `go-requests/0.0.3`
 
 type Requests struct {
-	proxy     string
+	Proxy     string
 	useragent string
 	timeout   int
 }
@@ -24,11 +24,12 @@ func (requests *Requests) request(method string, raw string, options *Options) (
 	transport := &http.Transport{
 		TLSClientConfig:   &tls.Config{InsecureSkipVerify: true},
 		DisableKeepAlives: true,
+		DisableCompression: true,
 	}
 
-	if requests.proxy != "" {
+	if requests.Proxy != "" {
 		transport.Proxy = func(request *http.Request) (i *url.URL, e error) {
-			return url.Parse(requests.proxy)
+			return url.Parse(requests.Proxy)
 		}
 	}
 
@@ -125,7 +126,7 @@ func (requests *Requests) Options(raw string, options *Options) (*http.Response,
 
 func (requests *Requests) SetProxy(raw string) {
 	if raw != "" {
-		requests.proxy = raw
+		requests.Proxy = raw
 	}
 }
 
@@ -164,7 +165,7 @@ func OPTIONS(raw string, options *Options)(*http.Response, error) {
 }
 
 func SetProxy(raw string) {
-	std.proxy = raw
+	std.Proxy = raw
 }
 
 func SetUserAgent(raw string) {
